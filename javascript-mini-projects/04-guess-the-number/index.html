@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>guess the number</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+        body {
+            background-color: rgb(253, 235, 229);
+            font-family: sans-serif;
+        }
+
+        img {
+            height: 30vh;
+        }
+
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            /* we use this to make and overlay in which left right top bottom all will 0 */
+            display: none;
+            background: rgb(4, 8, 7);
+            color: #fefdfd;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 44px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .overlay button {
+            padding: 12px 28px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+
+        }
+
+        .overlay h2 {
+            margin: 20px;
+        }
+
+        .overlay button:hover {
+            transform: scale(1.1);
+
+        }
+
+        .image {
+            opacity: 0;
+            height: 50vh;
+            gap: 190px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            transition: all 1s cubic-bezier(1, -1.11, 0.43, 1.17);
+        }
+
+
+
+        .startbutton {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 50px;
+            background-color: aqua;
+            color: black;
+            width: 35vw;
+            position: relative;
+            bottom: 100px;
+            border-radius: 46px;
+            font-size: 29px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .startbutton:hover {
+            transform: scale(1.1);
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            opacity: 1;
+            position: relative;
+        }
+
+        #guess {
+            border: 3px solid black;
+            font-size: 20px;
+            border-radius: 26px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+
+        }
+
+        .firstbutton {
+            height: 5vh;
+            width: 10vw;
+            border-radius: 28px;
+            background-color: rgb(5, 6, 10);
+            color: white;
+            font-size: 15px;
+            transition: transform 0.2s ease-in-out;
+            opacity: 0;
+        }
+
+        .firstbutton:hover {
+            transform: scale(1.3);
+        }
+
+        .output {
+            height: 10vh;
+            width: 30vw;
+            position: absolute;
+            top: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+            font-size: 30px;
+        }
+
+        .restart {
+            position: absolute;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 7vh;
+            width: 20vw;
+            border-radius: 28px;
+            background-color: rgb(5, 6, 10);
+            color: white;
+            font-size: 15px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .restart:hover {
+            transform: scale(1.1);
+        }
+
+        .overlay-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 210px;
+            color: green;
+            opacity: 0.3;
+            font-weight: bold;
+            z-index: 999;
+            pointer-events: none;
+            user-select: none;
+            text-transform: uppercase;
+            display: none;
+        }
+
+        .overlay-message.lost {
+            color: red;
+        }
+        .left{
+            position:absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wonMessage" class="overlay-message">W O N</div>
+    <div id="lostMessage" class="overlay-message lost">L O S T</div>
+
+
+    <div class="container">
+        <div class="output">
+
+        </div>
+        <div class="image">
+            <img src="https://is5-ssl.mzstatic.com/image/thumb/Purple69/v4/81/5b/e1/815be1c6-51c4-61bc-0e59-94bda0e825e7/source/512x512bb.jpg"
+                alt="">
+
+
+            <div class="content">
+                <h1> Guess a number from 1 to 100 </h1>
+            </div>
+
+            <img src="https://is5-ssl.mzstatic.com/image/thumb/Purple69/v4/81/5b/e1/815be1c6-51c4-61bc-0e59-94bda0e825e7/source/512x512bb.jpg"
+                alt="">
+        </div>
+        <div  class="left">
+
+        </div>
+        <button class="restart"> PLAY AGAIN </button>
+        <ul id="historyList" style="margin-top: 20px; list-style: none; position: absolute; font-size: 20px; color: black; right: 150px; top: 400px; "></ul>
+
+        <button class="startbutton">Start the game</button>
+
+
+        <input type="number" placeholder="Guess the number" id="guess">
+
+
+        <button class="firstbutton" type="submit"><b>SUBMIT</b></button>
+
+
+    </div>
+
+    <div id="infoScreen" class="overlay">
+        <div>
+            <h2>How to Play?</h2>
+            <p>Guess a number from 1 to 100
+                The game will tell you if your guess is too high or too low.</p>
+        </div>
+        <div class="message">
+            The maximum limit up to which you can guess is <strong>10</strong>. <br>
+            After that, you will <span style="color: red;">lose</span> the game!
+        </div>
+        <button id="continueBtn">Got it – let’s start!</button>
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

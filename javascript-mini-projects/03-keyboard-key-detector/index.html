@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Key Detector</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #0f172a;
+      color: #38bdf8;
+    }
+
+    .box {
+      background-color: #1e293b;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .key {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .details {
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="key">Press any key</div>
+    <div class="details">Key Code: -<br>Event Type: -</div>
+  </div>
+
+  <script>
+    const keyDiv = document.querySelector(".key");
+    const detailsDiv = document.querySelector(".details");
+    const audio=new Audio("click.mp3.wav") 
+
+    function getrandomcolor(){
+    let val1=Math.ceil(0+Math.random()*(255));
+    let val2=Math.ceil(0+Math.random()*(255));
+    let val3=Math.ceil(0+Math.random()*(255));
+    a=`rgb(${val1},${val2},${val3})`
+    return `rgb(${val1},${val2},${val3})`
+     
+}
+    document.addEventListener("keydown", function(event) {
+      keyDiv.textContent = `You pressed: ${event.key}`;
+      detailsDiv.innerHTML = `Key Code: ${event.keyCode}<br>Event Type: ${event.type}`;
+       document.querySelector("body").style.backgroundColor=getrandomcolor()
+       audio.currentTime=0
+       audio.play()
+    });
+  </script>
+</body>
+</html>
